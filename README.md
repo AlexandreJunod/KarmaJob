@@ -35,7 +35,7 @@ Datas are in JSON format.
 An user has a debt if he is owner of the job.
 An user has a credit if he his the worker.
 
-
+---
 
 ## Jobs
 
@@ -70,3 +70,15 @@ An user has a credit if he his the worker.
 ```
 
 Duration is a float, it corresponds on the number of hours. 
+
+---
+
+## DB Model
+
+![](.\docs\diagrams\KarmaJob.PNG)
+
+---
+
+## Statuses diagram
+
+![](.\docs\diagrams\Statuses_diagram.PNG)
