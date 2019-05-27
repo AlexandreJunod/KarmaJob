@@ -13,18 +13,18 @@ Datas are in JSON format.
 		"password": "a25f0d23dcaf86ea78a24e7a39a7f5bb0cb1305e01a59e1f6d7e00ec31338cd8",
 		"address": "Rue de la poste 12",
 		"debt": {
-			"karmapoints": 100
+			"karmapoints": 100,
 			"worker": {
-				"id": 3
-				"first_name": "Tom"
+				"id": 3,
+				"first_name": "Tom",
 				"last_name": "Sawyer"
 			}	
 		},
 		"credit": {
-			"karmapoints": 300
+			"karmapoints": 300,
 			"owner": {
-				"id": 5
-				"first_name": "Tom"
+				"id": 5,
+				"first_name": "Tom",
 				"last_name": "Jerry"
 			}	
 		}
@@ -54,13 +54,13 @@ An user has a credit if he his the worker.
 			"first_name": "Tom",
 			"last_name": "Sawyer",
 			"adresse": "Ste-croix"
-		}
+		},
 		"Worker": {
 			"id": 2,
 			"first_name": "Tom",
 			"last_name": "Jerry",
 			"adresse": "Rue de la poste 12"
-			}
+        },
 		"status": {
 			"id": 1,
 			"name": "open"
