@@ -53,12 +53,12 @@ export class DataProvider {
                 console.log('Job data saved to the db')
             })
         })
+        this.storage = storage;
     }
 
 
     constructor(private storage: Storage) {
         // this.init();
-        this.storage = storage;
 
         this.storage.ready().then(() => {
             this.storage.get('jobs').then((data) =>{
