@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { DataProvider } from '../../providers/data';
-import { User } from '../model/user';
-import { Status } from '../model/status';
-import { Job } from '../model/job';
+import { Storage } from '@ionic/storage';
+import { DataProvider } from '../providers/data';
 
 @Component({
     selector: 'app-home',
@@ -10,7 +8,10 @@ import { Job } from '../model/job';
     styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-    public obj: User
-    public obj: Status
-    public obj: Job
+    public data: DataProvider
+
+    constructor(private storage: Storage) {
+        this.data = new DataProvider(storage)
+        console.log(this.data)
+    }
 }
