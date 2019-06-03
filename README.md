@@ -60,7 +60,7 @@ An user has a credit if he his the worker.
 			"first_name": "Tom",
 			"last_name": "Jerry",
 			"adresse": "Rue de la poste 12"
-        },
+        	},
 		"status": {
 			"id": 1,
 			"name": "open"
