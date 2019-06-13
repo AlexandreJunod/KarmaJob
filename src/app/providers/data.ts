@@ -22,52 +22,82 @@ export class DataProvider {
 
 
     // Set and get for Users
-    public setUser(User) {
-        this.users = User
-        this.storage.ready().then( () => {
-            this.storage.set('users', this.users).then( () => {
-                console.log('User data saved to the db')
+    public setUser(user) {
+        return new Promise((resolve, reject) => {
+            this.getUsers().then((users) => {
+                if (users == null) {
+                    users = [user]
+                    resolve (this.storage.set('users', users))
+                }
+                else {
+                    users.push(user)
+                    resolve (this.storage.set('users', users))
+                }
             })
+        }).catch( err => {
+            console.log(err)
+            reject(err)
         })
     }
 
-    public getUser(User) {
+    public getUser(user) {
 
     }
 
     public getUsers() {
-        this.storage.ready().then(() => {
-            this.storage.get('users').then((data) =>{
-                this.users = data
-                return data
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
+                this.storage.get('users').then((data) =>{
+                    this.users = data
+                    console.log(this.users)
+                    resolve(this.users)
+                })
             })
+        }).catch( err => {
+            console.log(err)
+            reject(err)
         })
     }
 
     // Set and get for statuses
-    public setStatus(Status) {
-        this.statuses = Status
-        this.storage.ready().then( () => {
-            this.storage.set('statuses', this.statuses).then( () => {
-                console.log('Status data saved to the db')
+    public setStatus(status) {
+        return new Promise((resolve, reject) => {
+            this.getStatuses().then((statuses) => {
+                if (statuses == null) {
+                    statuses = [status]
+                    resolve (this.storage.set('statuses', statuses))
+                }
+                else {
+                    statuses.push(status)
+                    resolve (this.storage.set('statuses', statuses))
+                }
             })
+        }).catch( err => {
+            console.log(err)
+            reject(err)
         })
     }
 
-    public getStatus(Status) {
+    public getStatus(status) {
 
     }
 
     public getStatuses() {
-        this.storage.ready().then(() => {
-            this.storage.get('statuses').then((data) =>{
-                return this.statuses = data
+        return new Promise((resolve, reject) => {
+            this.storage.ready().then(() => {
+                this.storage.get('statuses').then((data) =>{
+                    this.statuses = data
+                    resolve(this.statuses)
+                })
             })
+        }).catch( err => {
+            console.log(err)
+            reject(err)
         })
     }
 
     // Set and get for jobs
-    public setJob(job): Promise<any> {
+    public setJob(job) {
         return new Promise((resolve, reject) => {
             this.getJobs().then((jobs) => {
                 if (jobs == null) {
@@ -88,11 +118,12 @@ export class DataProvider {
     public getJob(Job) {
     }
 
-    public getJobs(): Promise<any> {
+    public getJobs() {
         return new Promise((resolve, reject) => {
             this.storage.ready().then(() => {
                 this.storage.get('jobs').then((data) =>{
-                    return this.jobs = data
+                    this.jobs = data
+                    resolve(this.jobs)
                 })
             })
         }).catch( err => {
