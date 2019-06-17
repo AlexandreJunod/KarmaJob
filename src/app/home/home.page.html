@@ -7,12 +7,17 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <!-- <div *ngIf="data.users.length > 1"> -->
-        <p>Utilisateurs :</p>
-        <!-- <ion-item *ngFor="let user of data.users" (click)="showDetailsOf(user.id)">
-            {{ user.id}}
-        </ion-item> -->
-    <!-- </div> -->
-  </ion-list>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content refreshingText="Mise à jour..."></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list>
+        <div *ngIf="data.jobs.length > 1">
+            <p>Tâches :</p>
+            <ion-item *ngFor="let job of data.jobs" (click)="showDetailsOfJob(job.id)">
+                {{ job.title }}
+            </ion-item>
+        </div>
+    </ion-list>
+    Last update: {{ data.lastUpdateTime | date: 'dd/MM/yyyy HH:mm:ss' }}, success: {{ data.lastUpdateSuccess }}
 </ion-content>
