@@ -12,12 +12,12 @@
     </ion-refresher>
 
     <ion-list>
-        <div *ngIf="data.jobs.length > 1">
+        <!-- <div *ngIf="data.jobs.length > 1"> -->
             <p>Tâches :</p>
             <ion-item *ngFor="let job of data.jobs" (click)="showDetailsOfJob(job.id)">
                 {{ job.title }}
             </ion-item>
-        </div>
+        <!-- </div> -->
     </ion-list>
     Last update: {{ data.lastUpdateTime | date: 'dd/MM/yyyy HH:mm:ss' }}, success: {{ data.lastUpdateSuccess }}
 </ion-content>
