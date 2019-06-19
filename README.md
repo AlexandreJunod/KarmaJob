@@ -70,3 +70,12 @@ An user has a credit if he his the worker.
 ```
 
 Duration is a float, it corresponds on the number of hours. 
+
+---
+
+## Seeder
+
+To get easily à lot of datas, use [this](http://jsongen.pykaso.net/) json generator, next you can use (this)[myjson.com] json hoster
+
+It is used to try the application with more than 200 users and 500 jobs, I just replace the "apiurl" in DataProvider to use the json hoster
+
