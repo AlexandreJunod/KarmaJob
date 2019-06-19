@@ -42,7 +42,7 @@ export class DataProvider {
         this.jobs.push(j)
         j = new Job(5, 'Barbecue', "J'ai besoin d'une personne pour s'occuper de la viande lors de notre petite soirée barbecue", 'Cuisine', '23/06/2019 17:00', 7, 400, 5, 1, 2)
         this.jobs.push(j)
-        this.storage.set('jobs', this.jobs)
+        this.storage.set('jobs', {data: this.jobs})
 
         this.statuses = []
         let s = new Status(1, 'Ouvert')
@@ -59,7 +59,7 @@ export class DataProvider {
         this.statuses.push(s)
         s = new Status(7, 'Baclé')
         this.statuses.push(s)
-        this.storage.set('statuses', this.statuses)
+        this.storage.set('statuses', {data: this.statuses})
 
         this.users = []
         let u = new User(1, 'Abel', 'Auboisdormant', 'abcde', 'Rue du four')
@@ -74,7 +74,7 @@ export class DataProvider {
         this.users.push(u)
         u = new User(6, 'Lara', 'Tatouille', 'qwerty', 'Place pestalozzi')
         this.users.push(u)
-        this.storage.set('users', this.users)
+        this.storage.set('users', {data: this.users})
     }
 
     //-------------------------------------
@@ -83,8 +83,7 @@ export class DataProvider {
     public loadJobsFromAPI(): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             this.jobs = []
-            // this.httpClient.get(this.apiurl + 'jobs').subscribe(
-            this.httpClient.get('https://api.myjson.com/bins/kj7fh').subscribe(
+            this.httpClient.get(this.apiurl + 'jobs').subscribe(
                 data => { // API is responding, save the datas into jobs
                     this.storage.set('jobs', data).then(() => {
                         this.lastUpdateSuccess = true
@@ -111,7 +110,6 @@ export class DataProvider {
     public loadJobsFromStorage(): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             this.jobs = []
-            console.log('loadJobsFromStorage')
             this.storage.get('jobs').then((data) => {
                 data.data.forEach((value) => {
                     var j = new Job(value.id, value.title, value.description, value.theme, value.date, value.duration, value.karmapoints, value.owner, value.worker, value.status_id)
@@ -184,7 +182,6 @@ export class DataProvider {
     public loadStatusesFromStorage(): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             this.statuses = []
-            console.log('loadStatusesFromStorage')
             this.storage.get('statuses').then((data) => {
                 data.data.forEach((value) => {
                     var s = new Status(value.id, value.name)
@@ -257,7 +254,6 @@ export class DataProvider {
     public loadUsersFromStorage(): Promise<string> {
         return new Promise<string>((resolve, reject) => {
             this.users = []
-            console.log('loadUsersFromStorage')
             this.storage.get('users').then((data) => {
                 data.data.forEach((value) => {
                     var u = new User(value.id, value.first_name, value.last_name, value.password, value.address)
