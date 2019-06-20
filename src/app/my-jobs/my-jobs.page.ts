@@ -29,7 +29,7 @@ export class MyJobsPage implements OnInit {
     private load(): Promise<string> {
         return new Promise<string> ((resolve, reject) => {
             this.data.loadJobsFromAPI().then(() => {
-                this.data.loadJobsFromStorage().then(() => {
+                this.data.loadJobsFromStorage().then((jobs) => {
                     console.log('load.resolve')
                     resolve('Ok')
                 })

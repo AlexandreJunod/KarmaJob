@@ -13,24 +13,20 @@ export class HomePage {
     private router
     private data: DataProvider
     private storage: Storage
-    private currentUser : number
 
     constructor(router: Router, storage: Storage, data: DataProvider) {
         this.router = router
         this.storage = storage
         this.data = data
-        // this.currentUser = []
         this.load()
     }
 
     private load(): Promise<string> {
         return new Promise<string> ((resolve, reject) => {
-            this.storage.get('currentUser').then((current_user) => {
-                this.currentUser = current_user
-                this.data.getUser(current_user).then(() => {
+            this.data.getCurrentUser().then(() => {
+                this.data.getUser(this.data.currentUser).then(() => {
                     console.log('load.resolve')
                     resolve('Ok')
-
                 })
             }).catch(() => {
                 console.log('load.reject')
@@ -38,4 +34,17 @@ export class HomePage {
             })
         })
     }
+
+    showMyJobs(id) {
+        this.router.navigateByUrl('/my-jobs/' + id)
+    }
+
+    showTheirJobs(id) {
+        this.router.navigateByUrl('/their-jobs/' + id)
+    }
+
+    showFreeJobs(id) {
+        this.router.navigateByUrl('/free-jobs/' + id)
+    }
+
 }

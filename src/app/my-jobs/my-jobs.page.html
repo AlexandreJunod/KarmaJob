@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>my-jobs</ion-title>
+    <ion-title>Mes jobs</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-list *ngIf="data.jobs">
+        <ng-container *ngFor="let job of data.jobs">
+            <ion-item *ngIf="job.owner == id" (click)="showDetailsOfJob(job.id)">
+                <ion-label>
+                    <h2>{{ job.title }}</h2>
+                    <h3>{{ job.karmapoints }} KarmaPoints</h3>
+                    <h3>{{ job.duration }} heures</h3>
+                    <h3>Fait par : {{ job.worker }}</h3>
+                    <p>{{ job.date }}</p>
+                    <p>{{ job.description }}</p>
+                </ion-label>
+            </ion-item>
+        </ng-container>
+    </ion-list>
+    <ion-list *ngIf="!data.jobs">
+        <ion-item>
+            <ion-label>Il n'y à pas de jobs</ion-label>
+        </ion-item>
+    </ion-list>
 </ion-content>

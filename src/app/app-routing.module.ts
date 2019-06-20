@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
   { path: 'my-jobs/:id', loadChildren: './my-jobs/my-jobs.module#MyJobsPageModule' },
   { path: 'their-jobs/:id', loadChildren: './their-jobs/their-jobs.module#TheirJobsPageModule' },
-  { path: 'free-jobs', loadChildren: './free-jobs/free-jobs.module#FreeJobsPageModule' },
+  { path: 'free-jobs/:id', loadChildren: './free-jobs/free-jobs.module#FreeJobsPageModule' },
   { path: 'job-details/:id', loadChildren: './job-details/job-details.module#JobDetailsPageModule' },
 ];
 

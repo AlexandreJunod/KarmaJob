@@ -14,8 +14,10 @@ export class DataProvider {
     public jobs: Job[]
     public statuses: Status[]
     public users: User[]
+    public user: User[]
     public lastUpdateTime: Date
     public lastUpdateSuccess: boolean
+    public currentUser: number
 
     private storage: Storage
     private httpClient: HttpClient
@@ -27,6 +29,7 @@ export class DataProvider {
         this.jobs = []
         this.statuses = []
         this.users = []
+        this.user = []
         this.lastUpdateTime = null
         this.lastUpdateSuccess = false
     }
@@ -39,7 +42,7 @@ export class DataProvider {
         this.jobs.push(j)
         j = new Job(3, 'Réparer ma voiture', "Ma bougie d'allumage à quelques problèmes", 'Réparation', '19/06/2019 16:00', 9, 800, 5, 3, 5)
         this.jobs.push(j)
-        j = new Job(4, 'Arroser les plantes', "Je pards en vacances et mes plantes risquent de ne pas supporter tout l'été" , 'Jardinage', '07/07/2019 08:00', 1, 50, 2, 6, 4)
+        j = new Job(4, 'Arroser les plantes', "Je pards en vacances et mes plantes risquent de ne pas supporter tout l'été" , 'Jardinage', '07/07/2019 08:00', 1, 50, 2, null, 4)
         this.jobs.push(j)
         j = new Job(5, 'Barbecue', "J'ai besoin d'une personne pour s'occuper de la viande lors de notre petite soirée barbecue", 'Cuisine', '23/06/2019 17:00', 7, 400, 5, 1, 2)
         this.jobs.push(j)
@@ -137,8 +140,7 @@ export class DataProvider {
     public updateJobOnBackend(id): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.getJob(id).then((job) => {
-                this.httpClient
-                    .put(this.apiurl + 'jobs/' + id, job).subscribe(
+                this.httpClient.put(this.apiurl + 'jobs/' + id, job).subscribe(
                     data => {
                         resolve('Ok')
                     },
@@ -209,8 +211,7 @@ export class DataProvider {
     public updateStatusOnBackend(id): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.getStatus(id).then((status) => {
-                this.httpClient
-                    .put(this.apiurl + 'statuses/' + id, status).subscribe(
+                this.httpClient.put(this.apiurl + 'statuses/' + id, status).subscribe(
                     data => {
                         resolve('Ok')
                     },
@@ -271,18 +272,22 @@ export class DataProvider {
 
     public getUser(id): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.users.forEach((user) => {
-                if (user.id == id) resolve(user)
+            this.storage.get('users').then((users) => {
+                users.data.forEach((user) => {
+                    if (user.id == id) {
+                        this.user = user
+                        resolve(user)
+                    }
+                })
+                reject('User #' + id + ' not found')
             })
-            reject('User #' + id + ' not found')
         })
     }
 
     public updateUserOnBackend(id): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.getUser(id).then((user) => {
-                this.httpClient
-                    .put(this.apiurl + 'users/' + id, user).subscribe(
+                this.httpClient.put(this.apiurl + 'users/' + id, user).subscribe(
                     data => {
                         resolve('Ok')
                     },
@@ -290,6 +295,15 @@ export class DataProvider {
                         reject('API call failed')
                     }
                 )
+            })
+        })
+    }
+
+    public getCurrentUser(): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            this.storage.get('currentUser').then((currentUser) => {
+                this.currentUser = currentUser
+                resolve(currentUser)
             })
         })
     }
