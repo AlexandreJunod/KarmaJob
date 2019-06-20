@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage'
 import { Job } from '../model/job';
 import { Status } from '../model/status';
 import { User } from '../model/user';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Injectable()
 export class DataProvider {
@@ -22,7 +23,7 @@ export class DataProvider {
     constructor(storage: Storage, httpClient: HttpClient) {
         this.storage = storage
         this.httpClient = httpClient
-        // this.init()
+        this.init()
         this.jobs = []
         this.statuses = []
         this.users = []
@@ -124,7 +125,7 @@ export class DataProvider {
         })
     }
 
-    public getJob(id) {
+    public getJob(id): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.jobs.forEach((job) => {
                 if (job.id == id) resolve(job)
@@ -196,7 +197,7 @@ export class DataProvider {
         })
     }
 
-    public getStatus(id) {
+    public getStatus(id): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.statuses.forEach((status) => {
                 if (status.id == id) resolve(status)
@@ -268,7 +269,7 @@ export class DataProvider {
         })
     }
 
-    public getUser(id) {
+    public getUser(id): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.users.forEach((user) => {
                 if (user.id == id) resolve(user)

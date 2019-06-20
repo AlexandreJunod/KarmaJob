@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Connexion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list>
+    <ion-list-header>Connexion</ion-list-header>
+    <ion-item>
+        <ion-label>Utilisateur</ion-label>
+        <ion-select value="Null" placeholder="Choisir.." okText="Valider" cancelText="Annuler" [(ngModel)]="userid" (ionChange)="loginUser()">
+            <ion-select-option *ngFor="let user of data.users" value="{{ user.id }}">{{ user.first_name + " " + user.last_name }}</ion-select-option>
+        </ion-select>
+    </ion-item>
+</ion-list>
+</ion-content>

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { DataProvider } from '../provider/data';
-import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -13,43 +12,30 @@ import { ToastController } from '@ionic/angular';
 export class HomePage {
     private router
     private data: DataProvider
-    private toastCtrl: ToastController
+    private storage: Storage
+    private currentUser : number
 
-    constructor(router: Router, data: DataProvider, toastCtrl: ToastController) {
+    constructor(router: Router, storage: Storage, data: DataProvider) {
         this.router = router
+        this.storage = storage
         this.data = data
+        // this.currentUser = []
         this.load()
-    }
-
-    showDetailsOfJob(id) {
-        this.router.navigateByUrl('/job/' + id)
     }
 
     private load(): Promise<string> {
         return new Promise<string> ((resolve, reject) => {
-            this.data.loadJobsFromAPI().then(() => {
-                this.data.loadJobsFromStorage().then(() => {
-                    console.log('load.resolve');
+            this.storage.get('currentUser').then((current_user) => {
+                this.currentUser = current_user
+                this.data.getUser(current_user).then(() => {
+                    console.log('load.resolve')
                     resolve('Ok')
+
                 })
             }).catch(() => {
-                this.data.loadJobsFromStorage()
-                console.log('load.reject');
+                console.log('load.reject')
                 reject('Ko')
             })
-        })
-    }
-
-    doRefresh(event) {
-        console.log('Begin refresh');
-        this.load().then(() => {
-            this.toastCtrl.create({ message: 'Rechargé!', duration: 1000 }).then((toastData)=>{ toastData.present() })
-            event.target.complete();
-            console.log('Success refresh');
-        }).catch(() => {
-            this.toastCtrl.create({ message: 'Erreur de connexion!', duration: 1000 }).then((toastData)=>{ toastData.present() })
-            event.target.complete();
-            console.log('Failed refresh');
         })
     }
 }

@@ -4,7 +4,13 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'job/:id', loadChildren: './jobs/jobs.module#DetailsPageModule' },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'profile/:id', loadChildren: './profile/profile.module#ProfilePageModule' },
+  { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
+  { path: 'my-jobs/:id', loadChildren: './my-jobs/my-jobs.module#MyJobsPageModule' },
+  { path: 'their-jobs/:id', loadChildren: './their-jobs/their-jobs.module#TheirJobsPageModule' },
+  { path: 'free-jobs', loadChildren: './free-jobs/free-jobs.module#FreeJobsPageModule' },
+  { path: 'job-details/:id', loadChildren: './job-details/job-details.module#JobDetailsPageModule' },
 ];
 
 @NgModule({

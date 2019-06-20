@@ -7,22 +7,29 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content refreshingText="Mise à jour..."></ion-refresher-content>
-    </ion-refresher>
+    <!-- User not authentified -->
+    <ion-card *ngIf="!currentUser">
+    <!-- <ion-card> -->
+        <ion-card-header>
+            <ion-card-subtitle>KarmaJob</ion-card-subtitle>
+            <ion-card-title>Le fonctionnement</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <p>L'application permet aux utilisateurs de s'inscrire à des job, ils gagneront des "KarmaPoints".</p><br />
+            <p>L'application permet également aux utilisateurs de créer des jobs en leur donnant des "KarmaPoints", tout le long du job, le mandant et le mandataire auront des interactions à gérer avec le job, afin de faire évoluer le status du job.</p><br />
+            <p>Les <b>KarmaPoints</b> représentent une dette, lorsqu'un job à été accompli et validé, le mandant aura une dette envers le mandataire.</p><br />
+            <p><ion-button href="/login/">Se connecter</ion-button></p>
+        </ion-card-content>
+    </ion-card>
+    <!-- Salut, {{data.user.id}} -->
 
-    <ion-list>
-        <!-- <div *ngIf="data.jobs.length > 1"> -->
-            <p>Tâches :</p>
-            <!-- <ion-item *ngFor="let job of data.jobs (click)="showDetailsOfJob(job.id)"> -->
-            <ion-item *ngFor="let job of data.jobs" (click)="showDetailsOfJob(job.id)">
-                {{ job.title }}
-            </ion-item>
-        <!-- </div> -->
-    </ion-list>
+    <!-- User authentified -->
 </ion-content>
+
 <ion-footer>
     <ion-toolbar>
-        Last update: {{ data.lastUpdateTime | date: 'dd/MM/yyyy HH:mm:ss' }}, success: {{ data.lastUpdateSuccess }}
+        Alexandre Junod, 2019 - CPNV<br />
+        Last update: {{ data.lastUpdateTime | date: 'dd/MM/yyyy HH:mm:ss' }}, success: {{ data.lastUpdateSuccess }}<br />
+        User: {{ currentUser }}
     </ion-toolbar>
 </ion-footer>
