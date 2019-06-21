@@ -25,7 +25,7 @@ export class DataProvider {
     constructor(storage: Storage, httpClient: HttpClient) {
         this.storage = storage
         this.httpClient = httpClient
-        this.init()
+        // this.init()
         this.jobs = []
         this.statuses = []
         this.users = []
