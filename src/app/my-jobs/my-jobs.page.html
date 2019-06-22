@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button text="" icon="home" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mes jobs</ion-title>
+    <ion-buttons slot="end">
+        <ion-back-button text="" icon="settings" defaultHref="settings"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngIf="data.jobs">
+        <ng-container *ngFor="let job of data.jobs">
+            <ion-item *ngIf="job.owner_id == id" (click)="showDetailsOfJob(job.id)">
+                <ion-label>
+                    <h2>{{ job.title }}</h2>
+                    <h3>{{ job.karmapoints }} KarmaPoints</h3>
+                    <h3>{{ job.duration }} heures</h3>
+                    <h3>Fait par : {{ data.users[job.worker_id].first_name }} {{ data.users[job.worker_id].last_name }}</h3>
+                    <p>{{ job.date }}</p>
+                    <p>{{ job.description }}</p>
+                </ion-label>
+            </ion-item>
+        </ng-container>
+    </ion-list>
+    <ion-list *ngIf="!data.jobs">
+        <ion-item>
+            <ion-label>Il n'y à pas de jobs</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        Alexandre Junod, 2019 - CPNV<br />
+        Last update: {{ data.lastUpdateTime | date: 'dd/MM/yyyy HH:mm:ss' }}, success: {{ data.lastUpdateSuccess }}<br />
+    </ion-toolbar>
+</ion-footer>

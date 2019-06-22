@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button text="" icon="home" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Paramètres</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <h2>Thèmes</h2>
+    <ion-button (click)="changeTheme('neon')">Neon</ion-button>
+    <ion-button (click)="changeTheme('night')">Nuit</ion-button>
+</ion-content>

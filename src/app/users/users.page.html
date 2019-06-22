@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button text="" icon="home" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>users</ion-title>
+    <ion-buttons slot="end">
+        <ion-back-button text="" icon="settings" defaultHref="settings"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngIf="data.users">
+        <ng-container *ngFor="let user of data.users">
+            <ion-item *ngIf="user.id != id" (click)="showDetailsOfUser(user.id)">
+                <ion-label>
+                    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                    <h3>{{ user.address }}</h3>
+                </ion-label>
+            </ion-item>
+        </ng-container>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        Alexandre Junod, 2019 - CPNV<br />
+        Last update: {{ data.lastUpdateTime | date: 'dd/MM/yyyy HH:mm:ss' }}, success: {{ data.lastUpdateSuccess }}<br />
+    </ion-toolbar>
+</ion-footer>

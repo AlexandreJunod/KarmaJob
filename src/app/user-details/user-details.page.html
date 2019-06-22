@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button text="" icon="home" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>user-details</ion-title>
+    <ion-buttons slot="end">
+        <ion-back-button text="" icon="settings" defaultHref="settings"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <h4>{{ data.user.first_name }} {{ data.user.last_name }}</h4>
+    Adresse : {{ data.user.address }}
+    <br /><br />Jobs crées :
+    <ng-container *ngFor="let job of data.jobs">
+        <ion-card *ngIf="job.owner_id == id" (click)="showDetailsOfJob(job.id)">
+            <ion-card-header>
+                <ion-card-title>{{ job.title }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                {{ job.karmapoints }} KarmaPoints<br />
+                {{ job.date }} <br />
+            </ion-card-content>
+        </ion-card>
+    </ng-container>
+
+    <br /><br />Jobs accomplis :
+    <ng-container *ngFor="let job of data.jobs">
+        <ion-card *ngIf="job.worker_id == id" (click)="showDetailsOfJob(job.id)">
+            <ion-card-header>
+                <ion-card-title>{{ job.title }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                {{ job.karmapoints }} KarmaPoints<br />
+                {{ job.date }} <br />
+            </ion-card-content>
+        </ion-card>
+    </ng-container>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        Alexandre Junod, 2019 - CPNV<br />
+        Last update: {{ data.lastUpdateTime | date: 'dd/MM/yyyy HH:mm:ss' }}, success: {{ data.lastUpdateSuccess }}<br />
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button text="" icon="home" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Connexion</ion-title>
+    <ion-buttons slot="end">
+        <ion-back-button text="" icon="settings" defaultHref="settings"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list>
+    <ion-list-header>Connexion</ion-list-header>
+    <ion-item>
+        <ion-label>Utilisateur</ion-label>
+        <ion-select value="Null" placeholder="Choisir.." okText="Valider" cancelText="Annuler" [(ngModel)]="userid" (ionChange)="loginUser()">
+            <ion-select-option *ngFor="let user of data.users" value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }} </ion-select-option>
+        </ion-select>
+    </ion-item>
+</ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        Alexandre Junod, 2019 - CPNV<br />
+        Last update: {{ data.lastUpdateTime | date: 'dd/MM/yyyy HH:mm:ss' }}, success: {{ data.lastUpdateSuccess }}<br />
+    </ion-toolbar>
+</ion-footer>
