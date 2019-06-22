@@ -51,4 +51,7 @@ export class HomePage {
         this.router.navigateByUrl('/users/' + id)
     }
 
+    showProfile(id) {
+        this.router.navigateByUrl('/profile/' + id)
+    }
 }

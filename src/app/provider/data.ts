@@ -12,9 +12,9 @@ export class DataProvider {
     private apiurl: string = 'http://127.0.0.1:8000/api/ajdqrr/'
 
     public jobs: Job[]
-    public job: Job[]
+    public job: Job
     public statuses: Status[]
-    public status: Status[]
+    public status: Status
     public users: User[]
     public user: User[]
     public lastUpdateTime: Date
@@ -29,9 +29,9 @@ export class DataProvider {
         this.httpClient = httpClient
         this.init()
         this.jobs = []
-        this.job = []
+        this.job
         this.statuses = []
-        this.status = []
+        this.status
         this.users = []
         this.user = []
         this.lastUpdateTime = null
