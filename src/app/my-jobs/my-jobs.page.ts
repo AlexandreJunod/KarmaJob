@@ -19,14 +19,15 @@ export class MyJobsPage implements OnInit {
         this.router = router
         this.activatedRoute = activatedRoute
         this.data = data
-        this.load()
+        this.loadJobs()
+        this.loadUsers()
     }
 
     showDetailsOfJob(id) {
         this.router.navigateByUrl('/job-details/' + id)
     }
 
-    private load(): Promise<string> {
+    private loadJobs(): Promise<string> {
         return new Promise<string> ((resolve, reject) => {
             this.data.loadJobsFromAPI().then(() => {
                 this.data.loadJobsFromStorage().then((jobs) => {
@@ -41,7 +42,22 @@ export class MyJobsPage implements OnInit {
         })
     }
 
+    private loadUsers(): Promise<string> {
+        return new Promise<string> ((resolve, reject) => {
+            this.data.loadUsersFromAPI().then(() => {
+                this.data.loadUsersFromStorage().then(() => {
+                    console.log('load.resolve')
+                    resolve('Ok')
+                })
+            }).catch(() => {
+                this.data.loadUsersFromStorage()
+                console.log('load.reject')
+                reject('Ko')
+            })
+        })
+    }
+
     ngOnInit() {
-        this.id = +this.activatedRoute.snapshot.paramMap.get('id')
+        this.id = this.activatedRoute.snapshot.paramMap.get('id')
     }
 }

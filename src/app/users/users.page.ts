@@ -5,11 +5,11 @@ import { DataProvider } from '../provider/data';
 import { ToastController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-free-jobs',
-  templateUrl: './free-jobs.page.html',
-  styleUrls: ['./free-jobs.page.scss'],
+  selector: 'app-users',
+  templateUrl: './users.page.html',
+  styleUrls: ['./users.page.scss'],
 })
-export class FreeJobsPage implements OnInit {
+export class UsersPage implements OnInit {
     private router
     private activatedRoute
     private data: DataProvider
@@ -18,33 +18,17 @@ export class FreeJobsPage implements OnInit {
         this.router = router
         this.activatedRoute = activatedRoute
         this.data = data
-        this.loadJobs()
-        this.loadUsers()
+        this.load()
     }
 
-    showDetailsOfJob(id) {
-        this.router.navigateByUrl('/job-details/' + id)
+    showDetailsOfUser(id) {
+        this.router.navigateByUrl('/user-details/' + id)
     }
 
-    private loadJobs(): Promise<string> {
-        return new Promise<string> ((resolve, reject) => {
-            this.data.loadJobsFromAPI().then(() => {
-                this.data.loadJobsFromStorage().then((jobs) => {
-                    console.log('load.resolve')
-                    resolve('Ok')
-                })
-            }).catch(() => {
-                this.data.loadJobsFromStorage()
-                console.log('load.reject')
-                reject('Ko')
-            })
-        })
-    }
-
-    private loadUsers(): Promise<string> {
+    private load(): Promise<string> {
         return new Promise<string> ((resolve, reject) => {
             this.data.loadUsersFromAPI().then(() => {
-                this.data.loadUsersFromStorage().then(() => {
+                this.data.loadUsersFromStorage().then((jobs) => {
                     console.log('load.resolve')
                     resolve('Ok')
                 })

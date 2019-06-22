@@ -1,8 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
+    <ion-title class="ion-text-center">
       KarmaJob
     </ion-title>
+    <ion-buttons slot="end">
+        <ion-back-button text="" icon="settings" defaultHref="settings"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -24,16 +27,19 @@
     <ion-list *ngIf="data.currentUser">
     <ion-chip>
         <ion-icon name="contact"></ion-icon>
-        <ion-label>{{ data.user.name }}</ion-label>
+        <ion-label>{{ data.user.first_name }} {{ data.user.last_name }}</ion-label>
     </ion-chip>
         <ion-item (click)="showMyJobs(data.currentUser)">
-            <ion-label>Mes jobs<ion-badge float-right color="primary">{{ data.user.jobsOwned.length }}</ion-badge></ion-label>
+            <ion-label>Mes jobs</ion-label>
         </ion-item>
         <ion-item (click)="showTheirJobs(data.currentUser)">
-            <ion-label>Jobs des autres<ion-badge float-right color="primary">{{ data.user.jobsWorked.length }}</ion-badge></ion-label>
+            <ion-label>Jobs des autres</ion-label>
         </ion-item>
         <ion-item (click)="showFreeJobs(data.currentUser)">
-            <ion-label>Jobs disponibles<ion-badge float-right color="primary">Count</ion-badge></ion-label>
+            <ion-label>Jobs disponibles</ion-label>
+        </ion-item>
+        <ion-item (click)="showUsers(data.currentUser)">
+            <ion-label>Utilisateurs</ion-label>
         </ion-item>
     </ion-list>
 </ion-content>

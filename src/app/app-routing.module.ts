@@ -11,6 +11,9 @@ const routes: Routes = [
   { path: 'their-jobs/:id', loadChildren: './their-jobs/their-jobs.module#TheirJobsPageModule' },
   { path: 'free-jobs/:id', loadChildren: './free-jobs/free-jobs.module#FreeJobsPageModule' },
   { path: 'job-details/:id', loadChildren: './job-details/job-details.module#JobDetailsPageModule' },
+  { path: 'users/:id', loadChildren: './users/users.module#UsersPageModule' },
+  { path: 'user-details/:id', loadChildren: './user-details/user-details.module#UserDetailsPageModule' },
+
 ];
 
 @NgModule({

@@ -47,4 +47,8 @@ export class HomePage {
         this.router.navigateByUrl('/free-jobs/' + id)
     }
 
+    showUsers(id) {
+        this.router.navigateByUrl('/users/' + id)
+    }
+
 }

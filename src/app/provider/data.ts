@@ -12,7 +12,9 @@ export class DataProvider {
     private apiurl: string = 'http://127.0.0.1:8000/api/ajdqrr/'
 
     public jobs: Job[]
+    public job: Job[]
     public statuses: Status[]
+    public status: Status[]
     public users: User[]
     public user: User[]
     public lastUpdateTime: Date
@@ -25,9 +27,11 @@ export class DataProvider {
     constructor(storage: Storage, httpClient: HttpClient) {
         this.storage = storage
         this.httpClient = httpClient
-        // this.init()
+        this.init()
         this.jobs = []
+        this.job = []
         this.statuses = []
+        this.status = []
         this.users = []
         this.user = []
         this.lastUpdateTime = null
@@ -36,15 +40,19 @@ export class DataProvider {
 
     public init() { // Initialize storage with hardcoded data
         this.jobs = []
-        let j = new Job(1, 'Tondre le gazon', "Mon gazon est trop long et il me faudrait quelqu'un pour le tondre", 'Jardinage', '21/06/2019 14:00', 2.5, 150, 1, 2, 1)
+        let j = new Job(1, 'Tondre le gazon', "Mon gazon est trop long et il me faudrait quelqu'un pour le tondre", 'Jardinage', '21/06/2019 14:00', 2.5, 150, 1, 1)
+        j.addWorker(2)
         this.jobs.push(j)
-        j = new Job(2, 'Laver la piscine', 'Il y à des cailloux au fond de ma piscine', 'Menage', '30/06/2019 16:00', 4, 200, 4, 2, 3)
+        j = new Job(2, 'Laver la piscine', 'Il y à des cailloux au fond de ma piscine', 'Menage', '30/06/2019 16:00', 4, 200, 4, 3)
+        j.addWorker(2)
         this.jobs.push(j)
-        j = new Job(3, 'Réparer ma voiture', "Ma bougie d'allumage à quelques problèmes", 'Réparation', '19/06/2019 16:00', 9, 800, 5, 3, 5)
+        j = new Job(3, 'Réparer ma voiture', "Ma bougie d'allumage à quelques problèmes", 'Réparation', '19/06/2019 16:00', 9, 800, 5, 5)
+        j.addWorker(3)
         this.jobs.push(j)
-        j = new Job(4, 'Arroser les plantes', "Je pards en vacances et mes plantes risquent de ne pas supporter tout l'été" , 'Jardinage', '07/07/2019 08:00', 1, 50, 2, null, 4)
+        j = new Job(4, 'Arroser les plantes', "Je pars en vacances et mes plantes risquent de ne pas supporter tout l'été" , 'Jardinage', '07/07/2019 08:00', 1, 50, 2, 4)
         this.jobs.push(j)
-        j = new Job(5, 'Barbecue', "J'ai besoin d'une personne pour s'occuper de la viande lors de notre petite soirée barbecue", 'Cuisine', '23/06/2019 17:00', 7, 400, 5, 1, 2)
+        j = new Job(5, 'Barbecue', "J'ai besoin d'une personne pour s'occuper de la viande lors de notre petite soirée barbecue", 'Cuisine', '23/06/2019 17:00', 7, 400, 5, 2)
+        j.addWorker(1)
         this.jobs.push(j)
         this.storage.set('jobs', {data: this.jobs})
 
@@ -116,7 +124,9 @@ export class DataProvider {
             this.jobs = []
             this.storage.get('jobs').then((data) => {
                 data.data.forEach((value) => {
-                    var j = new Job(value.id, value.title, value.description, value.theme, value.date, value.duration, value.karmapoints, value.owner, value.worker, value.status_id)
+                    var j = new Job(value.id, value.title, value.description, value.theme, value.date, value.duration, value.karmapoints, value.owner_id, value.status_id)
+                    if(value.worker_id)
+                        j.addWorker(value.worker_id)
                     this.jobs.push(j)
                 })
                 console.log('LoadJobsFromStorage.resolve');
@@ -130,10 +140,15 @@ export class DataProvider {
 
     public getJob(id): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.jobs.forEach((job) => {
-                if (job.id == id) resolve(job)
+            this.storage.get('jobs').then((job) => {
+                this.jobs.forEach((job) => {
+                    if (job.id == id){
+                        this.job = job
+                        resolve(job)
+                    }
+                })
+                reject('Job #' + id + ' not found')
             })
-            reject('Job #' + id + ' not found')
         })
     }
 
@@ -201,10 +216,15 @@ export class DataProvider {
 
     public getStatus(id): Promise<any> {
         return new Promise<any>((resolve, reject) => {
-            this.statuses.forEach((status) => {
-                if (status.id == id) resolve(status)
+            this.storage.get('statuses').then((status) => {
+                this.statuses.forEach((status) => {
+                    if (status.id == id){
+                        this.status = status
+                        resolve(status)
+                    }
+                })
+                reject('Status #' + id + ' not found')
             })
-            reject('Status #' + id + ' not found')
         })
     }
 

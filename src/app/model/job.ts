@@ -6,11 +6,11 @@ export class Job {
     date: string
     duration: number
     karmapoints: number
-    owner: number
-    worker: number
+    owner_id: number
+    worker_id: number
     status_id: number
 
-    constructor(id: number, title: string, description: string, theme: string, date: string, duration: number, karmapoints: number, owner: number, worker: number, status_id: number) {
+    constructor(id: number, title: string, description: string, theme: string, date: string, duration: number, karmapoints: number, owner_id: number, status_id: number) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -18,12 +18,11 @@ export class Job {
         this.date = date;
         this.duration = duration;
         this.karmapoints = karmapoints;
-        this.owner = owner;
-        this.worker = worker;
+        this.owner_id = owner_id;
         this.status_id = status_id;
     }
 
-    add_worker(worker: number){
-        this.worker = worker;
+    addWorker(worker_id: number){
+        this.worker_id = worker_id;
     }
 }

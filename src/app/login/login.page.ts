@@ -13,7 +13,6 @@ export class LoginPage implements OnInit {
     private router
     private activatedRoute
     private data: DataProvider
-    private id: number
     private userid: number
     private storage: Storage
 
@@ -52,6 +51,5 @@ export class LoginPage implements OnInit {
     }
 
     ngOnInit() {
-        this.id = +this.activatedRoute.snapshot.paramMap.get('id')
     }
 }
