@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Storage } from '@ionic/storage';
+import * as Color from 'color';
 
 const defaults = {
     primary: '#3880ff',
@@ -13,6 +14,11 @@ const defaults = {
     medium: '#989aa2',
     light: '#f4f5f8'
 };
+
+function contrast(color, ratio = 0.8) {
+  color = Color(color);
+  return color.isDark() ? color.lighten(ratio) : color.darken(ratio);
+}
 
 function CSSTextGenerator(colors) {
     colors = { ...defaults, ...colors };
@@ -39,6 +45,8 @@ function CSSTextGenerator(colors) {
         --ion-color-primary-rgb: 56,128,255;
         --ion-color-primary-contrast: ${contrast(primary)};
         --ion-color-primary-contrast-rgb: 255,255,255;
+        --ion-color-primary-shade:  ${Color(primary).darken(shadeRatio)};
+
         // omitted other styles, see full source code
     `;
 }
