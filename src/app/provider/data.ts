@@ -42,6 +42,7 @@ export class DataProvider {
         this.jobs = []
         let j = new Job(1, 'Tondre le gazon', "Mon gazon est trop long et il me faudrait quelqu'un pour le tondre", 'Jardinage', '21/06/2019 14:00', 2.5, 150, 1, 1)
         j.addWorker(2)
+        j.rate(3,3,3)
         this.jobs.push(j)
         j = new Job(2, 'Laver la piscine', 'Il y à des cailloux au fond de ma piscine', 'Menage', '30/06/2019 16:00', 4, 200, 4, 3)
         j.addWorker(2)
@@ -127,6 +128,8 @@ export class DataProvider {
                     var j = new Job(value.id, value.title, value.description, value.theme, value.date, value.duration, value.karmapoints, value.owner_id, value.status_id)
                     if(value.worker_id)
                         j.addWorker(value.worker_id)
+                    if(value.speed_of_work || value.quality_of_work || value.kidness_of_worker)
+                        j.rate(value.speed_of_work, value.quality_of_work, value.kidness_of_worker)
                     this.jobs.push(j)
                 })
                 console.log('LoadJobsFromStorage.resolve');
@@ -164,6 +167,16 @@ export class DataProvider {
                     }
                 )
             })
+        })
+    }
+
+    public rateJob(id, speed_of_work, quality_of_work, kidness_of_worker): Promise<any> {
+        return new Promise<any>((resolve, reject) => {
+            this.getJob('id').then((job) => {
+                this.job.rate(speed_of_work, quality_of_work, kidness_of_worker)
+                resolve('Ok')
+                })
+                reject('Job #' + id + ' not found')
         })
     }
 

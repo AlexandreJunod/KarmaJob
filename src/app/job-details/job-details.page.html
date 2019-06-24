@@ -26,6 +26,9 @@
             <h3>Date : {{ data.job.date }}</h3>
             <h3>Durée : {{ data.job.duration }}</h3>
             <p>{{ data.job.description }}</p>
+            <ng-container *ngIf="data.job.worker_id && data.job.owner_id == data.currentUser">
+                <p><ion-button href="/job-rate/data.job.id">Donner une note</ion-button></p>
+            </ng-container>
         </ion-card-content>
     </ion-card>
 </ion-content>

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'job-details/:id', loadChildren: './job-details/job-details.module#JobDetailsPageModule' },
   { path: 'users/:id', loadChildren: './users/users.module#UsersPageModule' },
   { path: 'user-details/:id', loadChildren: './user-details/user-details.module#UserDetailsPageModule' },
-
+  { path: 'job-rate', loadChildren: './job-rate/job-rate.module#JobRatePageModule' },
 ];
 
 @NgModule({
