@@ -1,9 +1,53 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>job-rate</ion-title>
+    <ion-buttons slot="start">
+        <ion-back-button text="" icon="home" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Noter un job</ion-title>
+    <ion-buttons slot="end">
+        <ion-back-button text="" icon="settings" defaultHref="settings"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>Note</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            Rapidité d'exécution :
+            <ion-select value="Null" placeholder="Choisir.." okText="Valider" cancelText="Annuler" [(ngModel)]="speed_of_work">
+                <ion-select-option value=1>1</ion-select-option>
+                <ion-select-option value=2>2</ion-select-option>
+                <ion-select-option value=3>3</ion-select-option>
+                <ion-select-option value=4>4</ion-select-option>
+                <ion-select-option value=5>5</ion-select-option>
+            </ion-select>
+            Qualité du travail :
+            <ion-select value="Null" placeholder="Choisir.." okText="Valider" cancelText="Annuler" [(ngModel)]="quality_of_work">
+                <ion-select-option value=1>1</ion-select-option>
+                <ion-select-option value=2>2</ion-select-option>
+                <ion-select-option value=3>3</ion-select-option>
+                <ion-select-option value=4>4</ion-select-option>
+                <ion-select-option value=5>5</ion-select-option>
+            </ion-select>
+            Sympathie du travailleur :
+            <ion-select value="Null" placeholder="Choisir.." okText="Valider" cancelText="Annuler" [(ngModel)]="kidness_of_worker">
+                <ion-select-option value=1>1</ion-select-option>
+                <ion-select-option value=2>2</ion-select-option>
+                <ion-select-option value=3>3</ion-select-option>
+                <ion-select-option value=4>4</ion-select-option>
+                <ion-select-option value=5>5</ion-select-option>
+            </ion-select>
+            <ion-button (click)="sendRate()">Valider</ion-button>
+        </ion-card-content>
+    </ion-card>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        Alexandre Junod, 2019 - CPNV<br />
+        Last update: {{ data.lastUpdateTime | date: 'dd/MM/yyyy HH:mm:ss' }}, success: {{ data.lastUpdateSuccess }}<br />
+    </ion-toolbar>
+</ion-footer>

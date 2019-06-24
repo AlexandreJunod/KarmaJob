@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button text="" icon="home" defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mes notes</ion-title>
+    <ion-buttons slot="end">
+        <ion-back-button text="" icon="settings" defaultHref="settings"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngFor="let job of data.jobs">
+        <ng-container *ngIf="job.owner_id == data.currentUser">
+            <ng-container *ngFor="let user of data.users">
+                <ion-item *ngIf="job.worker_id == user.id">
+                    <ion-label>
+                        <h2>{{ user[job.worker_id].first_name }}</h2>
+                        <p>{{ job.kindness_of_worker }}<p>
+                    </ion-label>
+                </ion-item>
+            </ng-container>
+        </ng-container>
+    </ion-list>
+</ion-content>

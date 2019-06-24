@@ -171,14 +171,51 @@ export class DataProvider {
     }
 
     public rateJob(id, speed_of_work, quality_of_work, kidness_of_worker): Promise<any> {
-        return new Promise<any>((resolve, reject) => {
-            this.getJob('id').then((job) => {
-                this.job.rate(speed_of_work, quality_of_work, kidness_of_worker)
-                resolve('Ok')
+        return new Promise<string>((resolve, reject) => {
+            this.jobs = []
+            this.storage.get('jobs').then((data) => {
+                data.data.forEach((value) => {
+                    if(id == value.id)
+                    {
+                        var j = new Job(value.id, value.title, value.description, value.theme, value.date, value.duration, value.karmapoints, value.owner_id, value.status_id)
+                        if(value.worker_id)
+                            j.addWorker(value.worker_id)
+                        j.rate(speed_of_work, quality_of_work, kidness_of_worker)
+                        this.jobs.push(j)
+                    }
+                    else
+                    {
+                        var j = new Job(value.id, value.title, value.description, value.theme, value.date, value.duration, value.karmapoints, value.owner_id, value.status_id)
+                        if(value.worker_id)
+                            j.addWorker(value.worker_id)
+                        if(value.speed_of_work || value.quality_of_work || value.kidness_of_worker)
+                            j.rate(value.speed_of_work, value.quality_of_work, value.kidness_of_worker)
+                        this.jobs.push(j)
+                    }
+                    this.storage.set('jobs', {data: this.jobs})
                 })
-                reject('Job #' + id + ' not found')
+                console.log('rateJob.resolve');
+                resolve('Ok')
+            }).catch(() => {
+                console.log('rateJob.reject');
+                reject('Ko')
+            })
         })
+        // *=======================================================================================*
+        // * Ne fonctionne pas pour une raison inconnue, impossible de getJob depuis cette page la *
+        // *=======================================================================================*
+        // return new Promise<any>((resolve, reject) => {
+        //     this.getJob(id).then((job) => {
+        //         this.job.rate(speed_of_work, quality_of_work, kidness_of_worker)
+        //         resolve('Ok')
+        //     })
+        //     reject('Job #' + id + ' not found')
+        // })
     }
+
+
+
+
 
     //-------------------------------------
     // Load, get and update statuses

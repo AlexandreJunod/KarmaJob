@@ -54,4 +54,8 @@ export class HomePage {
     showProfile(id) {
         this.router.navigateByUrl('/profile/' + id)
     }
+
+    showRates(id) {
+        this.router.navigateByUrl('/my-ratings/' + id)
+    }
 }

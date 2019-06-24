@@ -14,34 +14,22 @@ export class JobRatePage implements OnInit {
     private activatedRoute
     private data: DataProvider
     private id: number
+    private speed_of_work: number
+    private quality_of_work: number
+    private kidness_of_worker: number
 
     constructor(router: Router, activatedRoute: ActivatedRoute, data: DataProvider) {
         this.router = router
         this.activatedRoute = activatedRoute
         this.data = data
-        this.loadJobs()
     }
 
-    showDetailsOfJob(id) {
-        this.router.navigateByUrl('/job-details/' + id)
-    }
-
-    private loadJobs(): Promise<string> {
-        return new Promise<string> ((resolve, reject) => {
-            this.data.loadJobsFromAPI().then(() => {
-                this.data.loadJobsFromStorage().then(() => {
-                    console.log('load.resolve')
-                    resolve('Ok')
-                })
-            }).catch(() => {
-                this.data.loadJobsFromStorage()
-                console.log('load.reject')
-                reject('Ko')
-            })
-        })
+    sendRate(){
+        this.data.rateJob(this.id, this.speed_of_work, this.quality_of_work, this.kidness_of_worker)
+        this.router.navigateByUrl('home')
     }
 
     ngOnInit() {
         this.id = this.activatedRoute.snapshot.paramMap.get('id')
     }
-    }
+}
